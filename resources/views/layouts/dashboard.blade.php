@@ -46,6 +46,19 @@
 <script src="{{ asset('mazer/dist/assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
 <script src="{{ asset('mazer/dist/assets/static/js/pages/simple-datatables.js') }}"></script>
 
+{{-- script setTimeout --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const successAlert = document.getElementById('success-alert');
+        if (successAlert) {
+            setTimeout(() => {
+                successAlert.remove();
+            }, 3000); // 3 detik
+        }
+    });
+</script>
+
+
 </body>
 
 </html>

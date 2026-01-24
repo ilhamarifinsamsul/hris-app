@@ -1,6 +1,7 @@
 @extends('layouts.dashboard')
 @section('title', 'Task')
 @section('content')
+@include('components.alert-success')
 <header class="mb-3">
     <a href="#" class="burger-btn d-block d-xl-none">
         <i class="bi bi-justify fs-3"></i>
@@ -27,7 +28,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex">
-                    <a href="#" class="btn btn-primary ms-auto mb-3">Add New Task</a>
+                    <a href="{{ route('tasks.create') }}" class="btn btn-primary ms-auto mb-3">Add New Task</a>
                 </div>
                 <table class="table table-striped" id="table1">
                     <thead>
@@ -53,18 +54,18 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-primary btn-sm">View</a>
+                                    <a href="" class="btn btn-primary btn-sm"><i class="bi bi-eye"></i></a>
                                     {{-- handle status --}}
                                     @if ($task->status == 'done')
-                                        <a href="" class="btn btn-warning btn-sm">Mark as Pending</a>
+                                        <a href="" class="btn btn-warning btn-sm"><i class="bi bi-x-circle"></i> Mark as Pending</a>
                                     @else
-                                        <a href="" class="btn btn-success btn-sm">Mark as Done</a>
+                                        <a href="" class="btn btn-success btn-sm"><i class="bi bi-check-circle"></i> Mark as Done</a>
                                     @endif
-                                    <a href="" class="btn btn-warning btn-sm">Edit</a>
-                                    <form action="" method="POST" class="d-inline">
+                                    <a href="" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                    <form action="" method="POST" class="d-inline" enctype="multipart/form-data">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
