@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/compiled/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/compiled/css/app-dark.css') }}">
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/compiled/css/iconly.css') }}">
+    {{-- DataTable --}}
+    <link rel="stylesheet" href="{{ asset('mazer/dist/assets/extensions/simple-datatables/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('mazer/dist/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
 </head>
 
 <body>
@@ -39,6 +42,9 @@
 <!-- Need: Apexcharts -->
 <script src="{{ asset('mazer/dist/assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
 <script src="{{ asset('mazer/dist/assets/static/js/pages/dashboard.js') }}"></script>
+<!-- DataTable -->
+<script src="{{ asset('mazer/dist/assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
+<script src="{{ asset('mazer/dist/assets/static/js/pages/simple-datatables.js') }}"></script>
 
 </body>
 
