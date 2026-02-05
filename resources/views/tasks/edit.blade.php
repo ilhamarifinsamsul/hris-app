@@ -26,11 +26,18 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('tasks.update', $task->id) }}" method="POST" enctype="multipart/form-data">
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     @csrf
+                    {{-- spoping --}}
+                    @method('PUT')
                     <div class="form-group">
                         <label for="title" class="form-title">Title</label>
-                        <input type="text" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" id="title" name="title" placeholder="Input Task">
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $task->title) }}" id="title" name="title" placeholder="Input Task">
                     </div>
                     @error('title')
                         <p class="text-danger">
@@ -40,7 +47,7 @@
 
                     <div class="form-group">
                         <label for="description" class="form-title">Description</label>
-                        <textarea class="form-control @error('description') is-invalid @enderror" value="{{ old('description') }}" id="description" name="description" placeholder="Description"></textarea>
+                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Description">{{ old('description', $task->description) }}</textarea>
                     </div>
                     @error('description')
                         <p class="text-danger">
@@ -54,7 +61,7 @@
                             <option value="">Select Employee</option>
                             @foreach ($employees as $employee)
                                 <option value="{{ $employee->id }}  "
-                                    {{ old('assigned_to') == $employee->id ? 'selected' : '' }}>
+                                    {{ old('assigned_to', $task->assigned_to) == $employee->id ? 'selected' : '' }}>
                                     {{ $employee->fullname }}
                                 </option>
                             @endforeach
@@ -69,7 +76,7 @@
                     {{-- due date --}}
                     <div class="form-group">
                         <label for="due_date" class="form-title">Due Date</label>
-                        <input type="date" class="form-control date @error('due_date') is-invalid @enderror" value="{{ old('due_date') }}" id="due_date" name="due_date">
+                        <input type="date" class="form-control date @error('due_date') is-invalid @enderror" value="{{ old('due_date', $task->due_date) }}" id="due_date" name="due_date">
                     </div>
                     @error('due_date')
                         <p class="text-danger">
@@ -82,9 +89,10 @@
                         <label for="status" class="form-title">Status</label>
                         <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
                             <option value="">Select Status</option>
-                            <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="in_progress" {{ old('status') == 'in_progress' ? 'selected' : '' }}>In Progress</option>
-                            <option value="done" {{ old('status') == 'done' ? 'selected' : '' }}>Done</option>
+                            <option value="pending" @if (old('status', $task->status) == 'pending') selected
+                            @endif>Pending</option>
+                            <option value="in_progress" @if (old('status', $task->status) == 'in_progress') selected @endif>In Progress</option>
+                            <option value="done" @if (old('status', $task->status) == 'done') selected @endif>Done</option>
                         </select>
                     </div>
                     @error('status')
@@ -93,7 +101,7 @@
                         </p>
                     @enderror
 
-                    <button type="submit" class="btn btn-primary mt-3">Create Task</button>
+                    <button type="submit" class="btn btn-primary mt-3">Update Task</button>
 
                 </form>
             </div>

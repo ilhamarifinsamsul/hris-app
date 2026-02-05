@@ -13,6 +13,7 @@
     {{-- DataTable --}}
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/extensions/simple-datatables/style.css') }}">
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 
 <body>
@@ -45,16 +46,49 @@
 <!-- DataTable -->
 <script src="{{ asset('mazer/dist/assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
 <script src="{{ asset('mazer/dist/assets/static/js/pages/simple-datatables.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-{{-- script setTimeout --}}
+{{-- sweetalert --}}
+@if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            timer: 3000,
+            showConfirmButton: false
+        });
+    </script>
+@endif
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const successAlert = document.getElementById('success-alert');
-        if (successAlert) {
-            setTimeout(() => {
-                successAlert.remove();
-            }, 3000); // 3 detik
-        }
+        document.querySelectorAll('.form-delete').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Yakin mau hapus?',
+                    text: "Data yang dihapus tidak bisa dikembalikan.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+{{-- custom flatpickr --}}
+<script>
+    let dateTime = flatpickr(".date", {
+        dateFormat: "Y-m-d",
     });
 </script>
 

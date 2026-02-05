@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('title', 'Task')
 @section('content')
-@include('components.alert-success')
+{{-- @include('components.alert-success') --}}
 <header class="mb-3">
     <a href="#" class="burger-btn d-block d-xl-none">
         <i class="bi bi-justify fs-3"></i>
@@ -49,6 +49,8 @@
                                 <td>
                                     @if ($task->status == 'done')
                                         <span class="badge bg-success">Done</span>
+                                    @elseif ($task->status == 'in_progress')
+                                        <span class="badge bg-info">In Progress</span>
                                     @else
                                         <span class="badge bg-warning">Pending</span>
                                     @endif
@@ -61,8 +63,8 @@
                                     @else
                                         <a href="" class="btn btn-success btn-sm"><i class="bi bi-check-circle"></i> Mark as Done</a>
                                     @endif
-                                    <a href="" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                                    <form action="" method="POST" class="d-inline" enctype="multipart/form-data">
+                                    <a href="{{ route('tasks.edit', $task) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                    <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inlin form-delete" enctype="multipart/form-data">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
