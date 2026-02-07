@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TaskController;
 
 Route::get('/', function () {
@@ -10,11 +11,13 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-// route handle status done
+
+// route handle employee
+Route::resource('/employees', EmployeeController::class);
+
+// route handle Task
 Route::get('/tasks/done/{id}', [TaskController::class, 'done'])->name('tasks.done');
-// route handle status pending
 Route::get('/tasks/pending/{id}', [TaskController::class, 'pending'])->name('tasks.pending');
-// route handle status in_progress
 Route::get('/tasks/in_progress/{id}', [TaskController::class, 'in_progress'])->name('tasks.in_progress');
 Route::resource('/tasks', TaskController::class);
 

@@ -21,10 +21,21 @@ class Employee extends Model
         'phone_number',
         'address',
         'birth_day',
+        'hire_date',
         'department_id',
         'role_id',
         'status',
         'salary',
     ];
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
 
 }
