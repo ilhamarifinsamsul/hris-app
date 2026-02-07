@@ -10,6 +10,12 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// route handle status done
+Route::get('/tasks/done/{id}', [TaskController::class, 'done'])->name('tasks.done');
+// route handle status pending
+Route::get('/tasks/pending/{id}', [TaskController::class, 'pending'])->name('tasks.pending');
+// route handle status in_progress
+Route::get('/tasks/in_progress/{id}', [TaskController::class, 'in_progress'])->name('tasks.in_progress');
 Route::resource('/tasks', TaskController::class);
 
 Route::middleware('auth')->group(function () {

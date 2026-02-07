@@ -56,12 +56,14 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-primary btn-sm"><i class="bi bi-eye"></i></a>
+                                    <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-eye"></i></a>
                                     {{-- handle status --}}
-                                    @if ($task->status == 'done')
-                                        <a href="" class="btn btn-warning btn-sm"><i class="bi bi-x-circle"></i> Mark as Pending</a>
+                                    @if ($task->status == 'pending')
+                                        <a href="{{ route('tasks.in_progress', $task->id) }}" class="btn btn-secondary btn-sm"><i class="bi bi-hourglass-split"></i></a>
+                                    @elseif ($task->status == 'in_progress')
+                                        <a href="{{ route('tasks.done', $task->id) }}" class="btn btn-info btn-sm"><i class="bi bi-arrow-repeat"></i></a>
                                     @else
-                                        <a href="" class="btn btn-success btn-sm"><i class="bi bi-check-circle"></i> Mark as Done</a>
+                                        <a href="{{ route('tasks.pending', $task->id) }}" class="btn btn-success btn-sm"><i class="bi bi-check-circle"></i></a>
                                     @endif
                                     <a href="{{ route('tasks.edit', $task) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                                     <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inlin form-delete" enctype="multipart/form-data">
