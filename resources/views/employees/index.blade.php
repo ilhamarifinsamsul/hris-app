@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Employee')
+@section('title', 'Employees')
 @section('content')
 {{-- @include('components.alert-success') --}}
 <header class="mb-3">
@@ -58,7 +58,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('employees.show', $employee->id) }}" target="_blank" class="btn btn-primary btn-sm"><i class="bi bi-eye"></i></a>
+                                    <a href="{{ route('employees.show', $employee->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-eye"></i></a>
                                     <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                                     <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="d-inlin form-delete" enctype="multipart/form-data">
                                         @csrf

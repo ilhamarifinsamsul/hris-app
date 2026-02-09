@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Task')
+@section('title', 'Tasks')
 @section('content')
 {{-- @include('components.alert-success') --}}
 <header class="mb-3">

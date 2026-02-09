@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Task')
+@section('title', 'Employee Create')
 @section('content')
 <header class="mb-3">
     <a href="#" class="burger-btn d-block d-xl-none">
