@@ -57,7 +57,7 @@
             </li>
 
             <li class="sidebar-item {{ request()->routeIs('departements.*') ? 'active' : '' }}">
-                <a href="#" class='sidebar-link'>
+                <a href="{{ route('departments.index') }}" class='sidebar-link'>
                     <i class="bi bi-briefcase-fill"></i>
                     <span>Departments</span>
                 </a>

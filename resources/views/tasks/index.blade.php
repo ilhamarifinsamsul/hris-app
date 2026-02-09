@@ -44,7 +44,7 @@
                         @foreach ($tasks as $task)
                             <tr>
                                 <td>{{ $task->title }}</td>
-                                <td>{{ $task->employee->fullname }}</td>
+                                <td>{{ $task->employee->fullname ?? '-' }}</td>
                                 <td>{{ $task->due_date }}</td>
                                 <td>
                                     @if ($task->status == 'done')
