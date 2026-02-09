@@ -66,22 +66,44 @@ class EmployeeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        $departments = Department::all();
+        $roles = Role::all();
+
+        return view('employees.edit', compact('employee', 'departments', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Employee $employee)
     {
-        //
+        // validasi data
+        $validated = $request->validate([
+            'fullname' => 'required|string|max:255',
+            'email' => 'required|email|unique:employees,email,' . $employee->id,
+            'phone_number' => 'required|string|max:20',
+            'address' => 'nullable|required',
+            'birth_day' => 'required|date',
+            'hire_date' => 'required|date',
+            'department_id' => 'required|exists:departments,id',
+            'role_id' => 'required|exists:roles,id',
+            'status' => 'required|string',
+            'salary' => 'required|numeric|min:0',
+        ]);
+        // jika berhasil validasi, simpan data
+        $employee->update($validated);
+
+        return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+        return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');
     }
 }
