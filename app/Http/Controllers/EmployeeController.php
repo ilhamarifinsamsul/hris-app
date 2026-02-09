@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -21,7 +23,9 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::all();
+        $roles = Role::all();
+        return view('employees.create', compact('departments', 'roles'));
     }
 
     /**
@@ -29,7 +33,23 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validasi data
+        $validated = $request->validate([
+            'fullname' => 'required|string|max:255',
+            'email' => 'required|email|unique:employees,email',
+            'phone_number' => 'required|string|max:20',
+            'address' => 'nullable|required',
+            'birth_day' => 'required|date',
+            'hire_date' => 'required|date',
+            'department_id' => 'required|exists:departments,id',
+            'role_id' => 'required|exists:roles,id',
+            'status' => 'required|string',
+            'salary' => 'required|numeric|min:0',
+        ]);
+        // Jika berhasil validasi, simpan data
+        Employee::create($validated);
+
+        return redirect()->route('employees.index')->with('success', 'Employee created successfully.');
     }
 
     /**

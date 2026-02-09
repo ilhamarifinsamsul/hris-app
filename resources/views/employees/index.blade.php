@@ -52,9 +52,9 @@
                                 <td>{{ $employee->role->title ?? 'N/A' }}</td>
                                 <td>
                                     @if ($employee->status == 'active')
-                                        <span class="badge bg-success">{{ $employee->status }}</span>
+                                        <span class="badge bg-success">{{ ucfirst($employee->status) }}</span>
                                     @else
-                                        <span class="badge bg-warning">{{ $employee->status }}</span>
+                                        <span class="badge bg-warning">{{ ucfirst($employee->status) }}</span>
                                     @endif
                                 </td>
                                 <td>
