@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PresenceController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TaskController;
 
@@ -20,6 +21,8 @@ Route::resource('/employees', EmployeeController::class);
 Route::resource('/departments', DepartmentController::class);
 // route handle role
 Route::resource('/roles', RoleController::class);
+// route handle presences
+Route::resource('/presences', PresenceController::class);
 
 // route handle Task
 Route::get('/tasks/done/{id}', [TaskController::class, 'done'])->name('tasks.done');

@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Employees')
+@section('title', 'Presences')
 @section('content')
 {{-- @include('components.alert-success') --}}
 <header class="mb-3">
@@ -11,14 +11,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Employees</h3>
-                <p class="text-subtitle text-muted">Handle Employee Data</p>
+                <h3>Presences</h3>
+                <p class="text-subtitle text-muted">Handle Employee Presences</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Employees</li>
+                        <li class="breadcrumb-item active" aria-current="page">Presences</li>
                     </ol>
                 </nav>
             </div>
@@ -28,39 +28,37 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex">
-                    <a href="{{ route('employees.create') }}" class="btn btn-primary ms-auto mb-3">Add New Employee</a>
+                    <a href="{{ route('presences.create') }}" class="btn btn-primary ms-auto mb-3">Add New Presence</a>
                 </div>
                 <table class="table table-striped" id="table1">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Hire Date</th>
-                            <th>Department</th>
-                            <th>Role</th>
+                            <th>Employee</th>
+                            <th>Check In</th>
+                            <th>Check Out</th>
+                            <th>Date</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($employees as $employee)
+                        @foreach ($presences as $presence)
                             <tr>
-                                <td>{{ $employee->fullname }}</td>
-                                <td>{{ $employee->email }}</td>
-                                <td>{{ $employee->hire_date }}</td>
-                                <td>{{ $employee->department->description ?? 'N/A' }}</td>
-                                <td>{{ $employee->role->title ?? 'N/A' }}</td>
+                                <td>{{ $presence->employee->fullname ?? 'N/A'}}</td>
+                                <td>{{ $presence->check_in }}</td>
+                                <td>{{ $presence->check_out }}</td>
+                                <td>{{ $presence->date }}</td>
                                 <td>
-                                    @if ($employee->status == 'active')
-                                        <span class="badge bg-success">{{ ucfirst($employee->status) }}</span>
+                                    @if ($presence->status == 'present')
+                                        <span class="badge bg-success">{{ ucfirst($presence->status) }}</span>
                                     @else
-                                        <span class="badge bg-warning">{{ ucfirst($employee->status) }}</span>
+                                        <span class="badge bg-warning">{{ ucfirst($presence->status) }}</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('employees.show', $employee->id) }}" class="btn btn-info btn-sm mb-1"><i class="bi bi-eye"></i></a>
-                                    <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-warning btn-sm mb-1"><i class="bi bi-pencil-square"></i></a>
-                                    <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="d-inlin form-delete" enctype="multipart/form-data">
+                                    <a href="{{ route('presences.show', $presence->id) }}" class="btn btn-info btn-sm mb-1"><i class="bi bi-eye"></i></a>
+                                    <a href="{{ route('presences.edit', $presence->id) }}" class="btn btn-warning btn-sm mb-1"><i class="bi bi-pencil-square"></i></a>
+                                    <form action="{{ route('presences.destroy', $presence->id) }}" method="POST" class="d-inlin form-delete" enctype="multipart/form-data">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
