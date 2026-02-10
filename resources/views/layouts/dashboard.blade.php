@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/extensions/simple-datatables/style.css') }}">
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -48,6 +49,7 @@
 <script src="{{ asset('mazer/dist/assets/static/js/pages/simple-datatables.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 {{-- sweetalert --}}
 @if (session('success'))
@@ -85,10 +87,26 @@
     });
 </script>
 
+{{-- select2 --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $('.select2').select2({
+            placeholder: "Select Employee",
+            allowClear: true,
+            width: '100%'
+        });
+    })
+</script>
+
 {{-- custom flatpickr --}}
 <script>
-    let dateTime = flatpickr(".date", {
+    let date = flatpickr(".date", {
         dateFormat: "Y-m-d",
+    });
+
+    let dateTime = flatpickr(".datetime", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
     });
 </script>
 

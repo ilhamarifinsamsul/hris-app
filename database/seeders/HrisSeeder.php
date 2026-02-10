@@ -19,7 +19,7 @@ class HrisSeeder extends Seeder
     {
         $faker = Faker::create();
 
-                // Insert table roles
+        // Insert table roles
         DB::table('roles')->insert([
             [
                 'title' => 'HR',

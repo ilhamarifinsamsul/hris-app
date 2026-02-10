@@ -70,7 +70,7 @@ class DepartmentController extends Controller
             'status' => 'required|in:active,inactive',
         ]);
         // simpan data ke database
-        $department= Department::findOrFail($id);
+        $department = Department::findOrFail($id);
         $department->update($validated);
         // redirect ke halaman index dengan pesan sukses
         return redirect()->route('departments.index')->with('success', 'Department updated successfully.');

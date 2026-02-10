@@ -51,12 +51,13 @@
                                 <td>
                                     @if ($presence->status == 'present')
                                         <span class="badge bg-success">{{ ucfirst($presence->status) }}</span>
+                                    @elseif ($presence->status == 'absent')
+                                        <span class="badge bg-danger">{{ ucfirst($presence->status) }}</span>
                                     @else
                                         <span class="badge bg-warning">{{ ucfirst($presence->status) }}</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('presences.show', $presence->id) }}" class="btn btn-info btn-sm mb-1"><i class="bi bi-eye"></i></a>
                                     <a href="{{ route('presences.edit', $presence->id) }}" class="btn btn-warning btn-sm mb-1"><i class="bi bi-pencil-square"></i></a>
                                     <form action="{{ route('presences.destroy', $presence->id) }}" method="POST" class="d-inlin form-delete" enctype="multipart/form-data">
                                         @csrf

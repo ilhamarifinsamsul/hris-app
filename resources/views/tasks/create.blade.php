@@ -51,7 +51,7 @@
 
                     <div class="form-group">
                         <label for="assigned_to" class="form-title">Assigned To</label>
-                        <select class="form-control @error('assigned_to') is-invalid @enderror" id="assigned_to" name="assigned_to">
+                        <select class="form-control select2 @error('assigned_to') is-invalid @enderror" id="assigned_to" name="assigned_to">
                             <option value="">Select Employee</option>
                             @foreach ($employees as $employee)
                                 <option value="{{ $employee->id }}  "

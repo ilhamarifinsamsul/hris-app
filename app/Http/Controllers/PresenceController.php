@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\Presence;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,8 @@ class PresenceController extends Controller
      */
     public function create()
     {
-        //
+        $employees = Employee::all();
+        return view('presences.create', compact('employees'));
     }
 
     /**
@@ -29,7 +31,16 @@ class PresenceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validasi data
+        $validated = $request->validate([
+            'employee_id' => 'required|exists:employees,id',
+            'check_in' => 'required|date',
+            'check_out' => 'required|date',
+            'date' => 'required|date',
+            'status' => 'required|in:present,absent,leave',
+        ]);
+        Presence::create($validated);
+        return redirect()->route('presences.index')->with('success', 'Presence Recorded successfully.');
     }
 
     /**
@@ -45,7 +56,9 @@ class PresenceController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $presence = Presence::findOrFail($id);
+        $employees = Employee::all();
+        return view('presences.edit', compact('presence', 'employees'));
     }
 
     /**
@@ -53,7 +66,15 @@ class PresenceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // validasi data
+        $validated = $request->validate([
+            'check_in' => 'required|date',
+            'check_out' => 'required|date',
+            'date' => 'required|date',
+            'status' => 'required|in:present,absent,leave',
+        ]);
+        Presence::findOrFail($id)->update($validated);
+        return redirect()->route('presences.index')->with('success', 'Presence updated successfully.');
     }
 
     /**
@@ -61,6 +82,7 @@ class PresenceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Presence::findOrFail($id)->delete();
+        return redirect()->route('presences.index')->with('success', 'Presence deleted successfully.');
     }
 }

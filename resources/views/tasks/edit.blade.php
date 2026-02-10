@@ -90,8 +90,7 @@
                         <label for="status" class="form-title">Status</label>
                         <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
                             <option value="">Select Status</option>
-                            <option value="pending" @if (old('status', $task->status) == 'pending') selected
-                            @endif>Pending</option>
+                            <option value="pending" @if (old('status', $task->status) == 'pending') selected @endif>Pending</option>
                             <option value="in_progress" @if (old('status', $task->status) == 'in_progress') selected @endif>In Progress</option>
                             <option value="done" @if (old('status', $task->status) == 'done') selected @endif>Done</option>
                         </select>
