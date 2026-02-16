@@ -58,7 +58,8 @@ class EmployeeController extends Controller
     public function show(string $id)
     {
         $employee = Employee::findOrFail($id);
-        return view('employees.show', compact('employee'));
+        $latestPayroll = $employee->payrolls()->latest()->first();
+        return view('employees.show', compact('employee', 'latestPayroll'));
     }
 
     /**
@@ -70,7 +71,10 @@ class EmployeeController extends Controller
         $departments = Department::all();
         $roles = Role::all();
 
-        return view('employees.edit', compact('employee', 'departments', 'roles'));
+        // latest payroll
+        $latestPayroll = $employee->payrolls()->latest()->first();
+
+        return view('employees.edit', compact('employee', 'departments', 'roles', 'latestPayroll'));
     }
 
     /**
@@ -89,7 +93,6 @@ class EmployeeController extends Controller
             'department_id' => 'required|exists:departments,id',
             'role_id' => 'required|exists:roles,id',
             'status' => 'required|string',
-            'salary' => 'required|numeric|min:0',
         ]);
         // jika berhasil validasi, simpan data
         $employee->update($validated);

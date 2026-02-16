@@ -64,7 +64,7 @@
                             {{-- birth day --}}
                             <div class="form-group">
                                 <label for="birth_day" class="form-title">Birth Day</label>
-                                <input type="date" class="form-control date @error('birth_day') is-invalid @enderror" value="{{ old('birth_day') }}" id="birth_day" name="birth_day">
+                                <input type="text" class="form-control date @error('birth_day') is-invalid @enderror" value="{{ old('birth_day') }}" id="birth_day" name="birth_day">
                             </div>
                             @error('birth_day')
                                 <p class="text-danger">
@@ -76,7 +76,7 @@
                             {{-- hire date --}}
                             <div class="form-group">
                                 <label for="hire_date" class="form-title">Hire Date</label>
-                                <input type="date" class="form-control date @error('hire_date') is-invalid @enderror" value="{{ old('hire_date') }}" id="hire_date" name="hire_date">
+                                <input type="text" class="form-control date @error('hire_date') is-invalid @enderror" value="{{ old('hire_date') }}" id="hire_date" name="hire_date">
                             </div>
                             @error('hire_date')
                                 <p class="text-danger">
@@ -157,14 +157,15 @@
                     @enderror
 
                     <div class="form-group">
-                        <label for="salary" class="form-title">Salary</label>
-                        <input type="number" class="form-control @error('salary') is-invalid @enderror" value="{{ old('salary') }}" id="salary" name="salary" placeholder="5000000">
+                    <label for="salary" class="form-title">Salary</label>
+                    <input type="number"
+                        class="form-control @error('salary') is-invalid @enderror"
+                        value="{{ old('salary', 0) }}"
+                        id="salary"
+                        name="salary"
+                        readonly>
                     </div>
-                    @error('salary')
-                        <p class="text-danger">
-                            {{ $message }}
-                        </p>
-                    @enderror
+
 
                     <div class="gap-2 mt-3 d-flex">
                         <a href="{{ route('employees.index') }}" class="btn btn-light">

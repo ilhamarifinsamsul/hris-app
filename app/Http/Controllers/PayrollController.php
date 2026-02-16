@@ -23,7 +23,8 @@ class PayrollController extends Controller
      */
     public function create()
     {
-        //
+        $employees = Employee::all();
+        return view('payrolls.create', compact('employees'));
     }
 
     /**
@@ -31,7 +32,24 @@ class PayrollController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validasi data
+        $validated = $request->validate([
+            'employee_id' => 'required|exists:employees,id',
+            'salary' => 'required|numeric|min:0',
+            'bonuses' => 'required|numeric|min:0',
+            'deductions' => 'required|numeric|min:0',
+            'net_salary' => 'required|numeric|min:0',
+            'pay_date' => 'required|date',
+        ]);
+        // menghitung net salary
+        $netSalary = $request->input('salary') - $request->input('deductions') + $request->input('bonuses');
+        $validated['net_salary'] = $netSalary;
+        // simpan data ke database
+        Payroll::create($validated);
+
+        return redirect()->route('payrolls.index')->with('success', 'Payroll created successfully.');
+
+
     }
 
     /**

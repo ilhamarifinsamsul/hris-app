@@ -164,16 +164,6 @@
                         </p>
                     @enderror
 
-                    <div class="form-group">
-                        <label for="salary" class="form-title">Salary</label>
-                        <input type="number" class="form-control @error('salary') is-invalid @enderror" value="{{ old('salary', $employee->salary) }}" id="salary" name="salary" placeholder="5000000">
-                    </div>
-                    @error('salary')
-                        <p class="text-danger">
-                            {{ $message }}
-                        </p>
-                    @enderror
-
                     <div class="gap-2 mt-3 d-flex">
                         <a href="{{ route('employees.index') }}" class="btn btn-light">
                             <i class="bi bi-arrow-left"></i> Back
