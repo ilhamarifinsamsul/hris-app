@@ -66,7 +66,7 @@
                                         <a href="{{ route('tasks.pending', $task->id) }}" class="btn btn-success btn-sm"><i class="bi bi-check-circle"></i></a>
                                     @endif
                                     <a href="{{ route('tasks.edit', $task) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                                    <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inlin form-delete" enctype="multipart/form-data">
+                                    <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inline form-delete" enctype="multipart/form-data">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>

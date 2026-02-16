@@ -41,7 +41,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        Schema::create('payroll', function (Blueprint $table) {
+        Schema::create('payrolls', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
             $table->decimal('salary', 10, 2);

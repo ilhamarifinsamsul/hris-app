@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 // query builder
 use Illuminate\Support\Facades\DB;
@@ -73,7 +72,7 @@ class HrisSeeder extends Seeder
                     'department_id' => 1,
                     'role_id' => 1,
                     'status' => 'active',
-                    'salary' => $faker->randomFloat(2, 30000, 100000),
+                    'salary' => $faker->numberBetween(3000000, 15000000),
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                     'deleted_at' => null
@@ -82,24 +81,24 @@ class HrisSeeder extends Seeder
             );
         }
 
-                // insert payroll
-        DB::table('payroll')->insert([
+        // insert payrolls
+        DB::table('payrolls')->insert([
             [
                 'employee_id' => 1,
-                'salary' => $faker->randomFloat(2, 30000, 100000),
-                'bonuses' => $faker->randomFloat(2, 1000, 5000),
-                'deductions' => $faker->randomFloat(2, 500, 2000),
-                'net_salary' => $faker->randomFloat(2, 25000, 95000),
+                'salary' => $faker->numberBetween(3000000, 15000000),
+                'bonuses' => $faker->numberBetween(100000, 2000000),
+                'deductions' => $faker->numberBetween(50000, 1000000),
+                'net_salary' => $faker->numberBetween(3000000, 15000000),
                 'pay_date' => Carbon::parse('2026-01-22'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
                 'employee_id' => 2,
-                'salary' => $faker->randomFloat(2, 30000, 100000),
-                'bonuses' => $faker->randomFloat(2, 1000, 5000),
-                'deductions' => $faker->randomFloat(2, 500, 2000),
-                'net_salary' => $faker->randomFloat(2, 25000, 95000),
+                'salary' => $faker->numberBetween(3000000, 15000000),
+                'bonuses' => $faker->numberBetween(100000, 2000000),
+                'deductions' => $faker->numberBetween(50000, 1000000),
+                'net_salary' => $faker->numberBetween(3000000, 15000000),
                 'pay_date' => Carbon::parse('2026-01-22'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
