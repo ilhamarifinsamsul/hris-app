@@ -71,10 +71,7 @@ class EmployeeController extends Controller
         $departments = Department::all();
         $roles = Role::all();
 
-        // latest payroll
-        $latestPayroll = $employee->payrolls()->latest()->first();
-
-        return view('employees.edit', compact('employee', 'departments', 'roles', 'latestPayroll'));
+        return view('employees.edit', compact('employee', 'departments', 'roles'));
     }
 
     /**

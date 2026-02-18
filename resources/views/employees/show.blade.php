@@ -114,7 +114,7 @@
                         <div class="p-3 border rounded-3">
                             <div class="text-muted small mb-1">Salary</div>
                             <div class="fw-semibold">
-                                {{ $latestPayroll->salary ? 'Rp ' . number_format($latestPayroll->salary, 0, ',', '.') : '-' }}
+                                {{ $latestPayroll?->salary ? 'Rp ' . number_format($latestPayroll->salary, 0, ',', '.') : '-' }}
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                         <div class="p-3 border rounded-3">
                             <div class="text-muted small mb-1">Net Salary</div>
                             <div class="fw-semibold">
-                                {{ $latestPayroll->net_salary ? 'Rp ' . number_format($latestPayroll->net_salary, 0, ',', '.') : '-' }}
+                                {{ $latestPayroll?->net_salary ? 'Rp ' . number_format($latestPayroll->net_salary, 0, ',', '.') : '-' }}
                             </div>
                         </div>
                     </div>

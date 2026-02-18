@@ -53,6 +53,7 @@
                                 <td>{{ $payroll->pay_date }}</td>
                                 <td>
                                     <a href="{{ route('payrolls.edit', $payroll->id) }}" class="btn btn-warning btn-sm mb-1"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="{{ route('payrolls.show', $payroll->id) }}" class="btn btn-info btn-sm mb-1"><i class="bi bi-file-earmark-text"></i></a>
                                     <form action="{{ route('payrolls.destroy', $payroll->id) }}" method="POST" class="d-inlin form-delete" enctype="multipart/form-data">
                                         @csrf
                                         @method('DELETE')

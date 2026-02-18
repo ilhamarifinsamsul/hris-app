@@ -42,7 +42,7 @@ class PayrollController extends Controller
             'pay_date' => 'required|date',
         ]);
         // menghitung net salary
-        $netSalary = $request->input('salary') - $request->input('deductions') + $request->input('bonuses');
+        $netSalary = $request->input('salary') + $request->input('bonuses') - $request->input('deductions');
         $validated['net_salary'] = $netSalary;
         // simpan data ke database
         Payroll::create($validated);
@@ -57,7 +57,9 @@ class PayrollController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // show slip gaji/payroll
+        $payroll = Payroll::findOrFail($id);
+        return view('payrolls.show', compact('payroll'));
     }
 
     /**
@@ -65,7 +67,9 @@ class PayrollController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $payroll = Payroll::findOrFail($id);
+        $employees = Employee::all();
+        return view('payrolls.edit', compact('payroll', 'employees'));
     }
 
     /**
@@ -73,7 +77,22 @@ class PayrollController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // validasi data
+        $validated = $request->validate([
+            'salary' => 'required|numeric|min:0',
+            'bonuses' => 'required|numeric|min:0',
+            'deductions' => 'required|numeric|min:0',
+            'net_salary' => 'required|numeric|min:0',
+            'pay_date' => 'required|date',
+        ]);
+        // menghitung net salary
+        $netSalary = $request->input('salary') + $request->input('bonuses') - $request->input('deductions');
+        $validated['net_salary'] = $netSalary;
+        // simpan data ke database
+        $payroll = Payroll::findOrFail($id);
+        $payroll->update($validated);
+
+        return redirect()->route('payrolls.index')->with('success', 'Payroll updated successfully.');
     }
 
     /**
@@ -81,6 +100,15 @@ class PayrollController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $payroll = Payroll::findOrFail($id);
+        $payroll->delete();
+        return redirect()->route('payrolls.index')->with('success', 'Payroll deleted successfully.');
+    }
+
+    // function print slip gaji
+    public function print(Payroll $payroll)
+    {
+        $payroll->load('employee');
+        return view('payrolls.print', compact('payroll'));
     }
 }

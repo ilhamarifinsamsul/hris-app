@@ -26,6 +26,8 @@ Route::resource('/roles', RoleController::class);
 Route::resource('/presences', PresenceController::class);
 // route handle payrolls
 Route::resource('/payrolls', PayrollController::class);
+// route handle print payrolls
+Route::get('/payrolls/{payroll}/print', [PayrollController::class, 'print'])->name('payrolls.print');
 
 // route handle Task
 Route::get('/tasks/done/{id}', [TaskController::class, 'done'])->name('tasks.done');
