@@ -59,7 +59,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('presences.edit', $presence->id) }}" class="btn btn-warning btn-sm mb-1"><i class="bi bi-pencil-square"></i></a>
-                                    <form action="{{ route('presences.destroy', $presence->id) }}" method="POST" class="d-inlin form-delete" enctype="multipart/form-data">
+                                    <form action="{{ route('presences.destroy', $presence->id) }}" method="POST" class="d-inline form-delete" enctype="multipart/form-data">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>

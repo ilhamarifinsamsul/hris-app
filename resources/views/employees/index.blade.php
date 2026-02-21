@@ -60,7 +60,7 @@
                                 <td>
                                     <a href="{{ route('employees.show', $employee->id) }}" class="btn btn-info btn-sm mb-1"><i class="bi bi-eye"></i></a>
                                     <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-warning btn-sm mb-1"><i class="bi bi-pencil-square"></i></a>
-                                    <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="d-inlin form-delete" enctype="multipart/form-data">
+                                    <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="d-inline form-delete" enctype="multipart/form-data">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>

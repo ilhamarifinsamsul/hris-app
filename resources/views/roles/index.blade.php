@@ -45,7 +45,7 @@
                                 <td>{{ $role->description }}</td>
                                 <td>
                                     <a href="{{ route('roles.edit', $role) }}" class="btn btn-warning btn-sm mb-1"><i class="bi bi-pencil-square"></i></a>
-                                    <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="d-inlin form-delete" enctype="multipart/form-data">
+                                    <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="d-inline form-delete" enctype="multipart/form-data">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>

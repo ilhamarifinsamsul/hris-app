@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PresenceController;
 use App\Http\Controllers\RoleController;
@@ -28,6 +29,12 @@ Route::resource('/presences', PresenceController::class);
 Route::resource('/payrolls', PayrollController::class);
 // route handle print payrolls
 Route::get('/payrolls/{payroll}/print', [PayrollController::class, 'print'])->name('payrolls.print');
+// route handle leaves
+Route::resource('/leave-requests', LeaveController::class);
+// route handle approve leaves
+Route::get('/leave-requests/approve/{id}', [LeaveController::class, 'approve'])->name('leave-requests.approve');
+// route handle reject leaves
+Route::get('/leave-requests/reject/{id}', [LeaveController::class, 'reject'])->name('leave-requests.reject');
 
 // route handle Task
 Route::get('/tasks/done/{id}', [TaskController::class, 'done'])->name('tasks.done');
