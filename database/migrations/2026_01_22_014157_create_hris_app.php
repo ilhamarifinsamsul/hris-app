@@ -93,7 +93,7 @@ return new class extends Migration
         Schema::dropIfExists('roles');
         Schema::dropIfExists('departments');
         Schema::dropIfExists('employees');
-        Schema::dropIfExists('payroll');
+        Schema::dropIfExists('payrolls');
         Schema::dropIfExists('presences');
         Schema::dropIfExists('leave_requests');
         Schema::dropIfExists('tasks');

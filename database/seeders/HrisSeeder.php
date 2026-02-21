@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
 // Carbon/date time
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 class HrisSeeder extends Seeder
 {
     /**
@@ -27,8 +28,8 @@ class HrisSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'title' => 'Developer',
-                'description' => 'Handling Code',
+                'title' => 'Employee',
+                'description' => 'Handling Employee Role',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]
@@ -58,7 +59,6 @@ class HrisSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
         ]);
-
         // Insert Employees
         for ($i = 0; $i < 3; $i++) {
             DB::table('employees')->insert(
@@ -80,6 +80,18 @@ class HrisSeeder extends Seeder
                 ]
             );
         }
+        // Insert Users
+        DB::table('users')->insert([
+            [
+                'name' => 'Admin HRIS',
+                'email' => 'admin@hris.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+                'created_at' => now(),
+                'updated_at' => now(),
+                'employee_id' => 1
+            ]
+        ]);
 
         // insert payrolls
         DB::table('payrolls')->insert([
@@ -152,18 +164,15 @@ class HrisSeeder extends Seeder
         // Insert Tasks
         for ($i = 0; $i < 2; $i++) {
             DB::table('tasks')->insert([
-                [
-                    'title' => $faker->sentence(3),
-                    'description' => $faker->paragraph,
-                    'assigned_to' => 1,
-                    'due_date' => Carbon::parse('2026-01-22'),
-                    'status' => 'pending',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ]
+                'title' => $faker->sentence(3),
+                'description' => $faker->paragraph,
+                'assigned_to' => 1,
+                'due_date' => Carbon::parse('2026-01-22'),
+                'status' => 'pending',
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
-
 
     }
 }
