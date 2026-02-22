@@ -117,7 +117,7 @@ class HrisSeeder extends Seeder
             ]
         ]);
 
-                // Insert Presences
+        // Insert Presences
         DB::table('presences')->insert([
             [
                 'employee_id' => 1,

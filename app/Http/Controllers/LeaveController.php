@@ -13,7 +13,15 @@ class LeaveController extends Controller
      */
     public function index()
     {
-        $leaveRequests = LeaveRequest::all();
+        // check if user is logged in
+        if (session('role') == 'HR' ) {
+            // HR role
+            $leaveRequests = LeaveRequest::all();
+        } else {
+            // employee role
+            $leaveRequests = LeaveRequest::where('employee_id', auth()->user()->employee_id)->latest()->get();
+        }
+
         return view('leaves.index', compact('leaveRequests'));
     }
 

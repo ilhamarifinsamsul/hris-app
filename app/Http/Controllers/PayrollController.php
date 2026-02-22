@@ -13,7 +13,14 @@ class PayrollController extends Controller
      */
     public function index()
     {
-        $payrolls = Payroll::all();
+        // check if user is logged in
+        if (session('role') == 'HR' ) {
+            // HR role
+            $payrolls = Payroll::all();
+        } else {
+            // employee role
+            $payrolls = Payroll::where('employee_id', auth()->user()->employee_id)->latest()->get();
+        }
 
         return view('payrolls.index', compact('payrolls'));
     }

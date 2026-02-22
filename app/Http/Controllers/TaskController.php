@@ -14,8 +14,15 @@ class TaskController extends Controller
      */
     public function index()
     {
-        // $tasks = Task::with('employee')->latest()->get();
-        $tasks = Task::all();
+        // check if user is logged in
+        if (session('role') == 'HR' ) {
+            // HR role
+            $tasks = Task::all();
+        } else {
+            // employee role
+            $tasks = Task::where('assigned_to', auth()->user()->employee_id)->latest()->get();
+        }
+
         return view('tasks.index', compact('tasks'));
     }
 

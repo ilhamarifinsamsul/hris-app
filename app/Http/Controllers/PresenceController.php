@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Presence;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PresenceController extends Controller
@@ -13,7 +14,15 @@ class PresenceController extends Controller
      */
     public function index()
     {
-        $presences = Presence::all();
+        // check if user is logged in
+        if (session('role') == 'HR' ) {
+            // HR role
+            $presences = Presence::all();
+        } else {
+            // employee role
+            $presences = Presence::where('employee_id', auth()->user()->employee_id)->latest()->get();
+        }
+
         return view('presences.index', compact('presences'));
     }
 
@@ -31,15 +40,27 @@ class PresenceController extends Controller
      */
     public function store(Request $request)
     {
-        // validasi data
-        $validated = $request->validate([
-            'employee_id' => 'required|exists:employees,id',
-            'check_in' => 'required|date',
-            'check_out' => 'required|date',
-            'date' => 'required|date',
-            'status' => 'required|in:present,absent,leave',
-        ]);
-        Presence::create($validated);
+        // validasi data role HR
+        if (session('role') == 'HR') {
+            $validated = $request->validate([
+                'employee_id' => 'required|exists:employees,id',
+                'check_in' => 'required|date',
+                'check_out' => 'required|date',
+                'date' => 'required|date',
+                'status' => 'required|in:present,absent,leave',
+            ]);
+            Presence::create($validated);
+        } else {
+            // validasi data role employee
+            Presence::create([
+                'employee_id' => session('employee_id'),
+                'check_in' => Carbon::now()->format('Y-m-d H:i:s'), // $request->check_in,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+                'date' => Carbon::now()->format('Y-m-d'), // $request->date,
+                'status' => 'present',
+            ]);
+        }
         return redirect()->route('presences.index')->with('success', 'Presence Recorded successfully.');
     }
 
