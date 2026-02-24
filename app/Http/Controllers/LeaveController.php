@@ -40,12 +40,22 @@ class LeaveController extends Controller
     public function store(Request $request)
     {
         // validasi data
-        $validated = $request->validate([
-            'employee_id' => 'required|exists:employees,id',
-            'leave_type' => 'required',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
-        ]);
+        if (session('role') == 'Employee') {
+            $validated = $request->validate([
+                'leave_type' => 'required',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date',
+            ]);
+            // Paksa employee_id dari user login
+            $validated['employee_id'] = auth()->user()->employee->id;
+        } else {
+            $validated = $request->validate([
+                'employee_id' => 'required|exists:employees,id',
+                'leave_type' => 'required',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date',
+            ]);
+        }
 
         // status
         $validated['status'] = 'pending';

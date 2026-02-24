@@ -29,20 +29,31 @@
                 <div class="card-body">
                     <form action="{{ route('leave-requests.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        {{-- Employee --}}
-                        <div class="form-group">
-                            <label for="employee_id" class="form-title">Employee</label>
-                            <select class="form-control select2 @error('employee_id') is-invalid @enderror" id="employee_id"
-                                name="employee_id">
-                                <option value="">Select Employee</option>
-                                @foreach ($employees as $employee)
-                                    <option value="{{ $employee->id }}  "
-                                        {{ old('employee_id') == $employee->id ? 'selected' : '' }}>
-                                        {{ $employee->fullname }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                        {{-- Employee Field --}}
+                        @if (session('role') == 'Employee')
+                            <input type="hidden" name="employee_id" value="{{ auth()->user()->employee->id }}">
+                            {{-- Tampilkan hanya nama (readonly) --}}
+                            <div class="form-group">
+                                <label class="form-title">Employee</label>
+                                <input type="text" class="form-control" value="{{ auth()->user()->employee->fullname }}"
+                                    readonly>
+                            </div>
+                        @else
+                            {{-- HR bisa pilih employee --}}
+                            <div class="form-group">
+                                <label for="employee_id" class="form-title">Employee</label>
+                                <select class="form-control select2 @error('employee_id') is-invalid @enderror"
+                                    id="employee_id" name="employee_id">
+                                    <option value="">Select Employee</option>
+                                    @foreach ($employees as $employee)
+                                        <option value="{{ $employee->id }}  "
+                                            {{ old('employee_id') == $employee->id ? 'selected' : '' }}>
+                                            {{ $employee->fullname }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif
                         @error('employee_id')
                             <p class="text-danger">
                                 {{ $message }}
@@ -52,7 +63,8 @@
                         {{-- Leave Type --}}
                         <div class="form-group">
                             <label for="leave_type" class="form-title">Leave Type</label>
-                            <select name="leave_type" id="leave_type" class="form-control @error('leave_type') is-invalid @enderror">
+                            <select name="leave_type" id="leave_type"
+                                class="form-control @error('leave_type') is-invalid @enderror">
                                 <option value="">Select Leave Type</option>
                                 <option value="Vocation">Vocation</option>
                                 <option value="Sick Leave">Sick Leave</option>
@@ -71,7 +83,8 @@
                                 {{-- Start Date --}}
                                 <div class="form-group">
                                     <label for="start_date" class="form-title">Start Date</label>
-                                    <input type="text" class="form-control date @error('start_date') is-invalid @enderror"
+                                    <input type="text"
+                                        class="form-control date @error('start_date') is-invalid @enderror"
                                         value="{{ old('start_date') }}" id="start_date" name="start_date">
                                 </div>
                                 @error('start_date')
