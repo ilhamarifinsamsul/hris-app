@@ -60,16 +60,34 @@
                                     <td>
                                         <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-primary btn-sm"><i
                                                 class="bi bi-eye"></i></a>
-                                        {{-- handle status --}}
+                                        {{-- handle status Pending --}}
                                         @if ($task->status == 'pending')
-                                            <a href="{{ route('tasks.in_progress', $task->id) }}"
-                                                class="btn btn-secondary btn-sm"><i class="bi bi-hourglass-split"></i></a>
+                                            <form action="{{ route('tasks.in_progress', $task->id) }}" class="d-inline"
+                                                method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn btn-outline-secondary btn-sm">
+                                                    <i class="bi bi-hourglass-split"></i>
+                                                </button>
+                                            </form>
                                         @elseif ($task->status == 'in_progress')
-                                            <a href="{{ route('tasks.done', $task->id) }}" class="btn btn-info btn-sm"><i
-                                                    class="bi bi-arrow-repeat"></i></a>
+                                            <form action="{{ route('tasks.done', $task->id) }}" class="d-inline"
+                                                method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn btn-outline-info btn-sm">
+                                                    <i class="bi bi-arrow-repeat"></i>
+                                                </button>
+                                            </form>
                                         @else
-                                            <a href="{{ route('tasks.pending', $task->id) }}"
-                                                class="btn btn-success btn-sm"><i class="bi bi-check-circle"></i></a>
+                                            <form action="{{ route('tasks.pending', $task->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button class="btn btn-outline-success btn-sm">
+                                                    <i class="bi bi-check-circle"></i>
+                                                </button>
+                                            </form>
                                         @endif
 
                                         @if (session('role') != 'Employee')
