@@ -93,7 +93,9 @@
                                 <h4>Latest Presence Employees</h4>
                             </div>
                             <div class="card-body">
-                                <canvas id="presence"></canvas>
+                                <canvas id="presence">
+
+                                </canvas>
                             </div>
                         </div>
                     </div>

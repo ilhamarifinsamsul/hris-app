@@ -7,7 +7,6 @@ use App\Models\Department;
 use App\Models\Payroll;
 use App\Models\Task;
 
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -19,5 +18,22 @@ class DashboardController extends Controller
         $payroll = Payroll::count();
         $tasks = Task::all();
         return view('dashboard.index', compact('employee', 'presence', 'department', 'payroll', 'tasks'));
+    }
+
+    public function presence()
+    {
+        $data = Presence::where('status', 'present')
+                ->selectRaw('MONTH(date) as month, YEAR(date) as year, COUNT(*) as total')
+                ->groupBy('month', 'year')
+                ->orderBy('year', 'asc')
+                ->get();
+
+                $temp = [];
+                $i = 0;
+                foreach ($data as $item) {
+                    $temp[$i] = $item->total;
+                    $i++;
+                }
+        return response()->json($temp);
     }
 }

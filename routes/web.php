@@ -23,6 +23,8 @@ Route::middleware(['auth'])->group(function () {
         ->name('dashboard')
         ->middleware('role:HR,Employee');
 
+        Route::get('/dashboard/presence', [DashboardController::class, 'presence']);
+
     /*
     |--------------------------------------------------------------------------
     | HR ONLY

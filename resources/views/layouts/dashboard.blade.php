@@ -55,6 +55,9 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    {{-- Chart Js --}}
+    <script src="{{ asset('mazer/dist/assets/extensions/chart.js/chart.umd.js') }}"></script>
+
     @stack('scripts')
 
     {{-- sweetalert --}}
@@ -114,6 +117,58 @@
             enableTime: true,
             dateFormat: "Y-m-d H:i",
         });
+    </script>
+
+    {{-- chart js --}}
+    <script>
+        var ctxBar = document.getElementById('presence').getContext('2d');
+        var myBar = new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Total',
+                    data: [],
+                    backgroundColor: 'rgba(41, 128, 185, 0.7)',
+                    borderColor: 'rgba(41, 128, 185, 1)',
+                    borderWidth: 2,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Latest Presence'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // integrasi backend
+        function updateData() {
+            fetch('/dashboard/presence')
+                .then(response => response.json())
+                .then((output) => {
+                    myBar.data.datasets = [{
+                        label: 'Total',
+                        data: output,
+                        backgroundColor: 'rgba(41, 128, 185, 0.7)',
+                        borderColor: 'rgba(41, 128, 185, 1)',
+                        borderWidth: 2,
+                        borderRadius: 6
+                    }];
+                    myBar.update();
+                })
+        }
+
+        updateData();
     </script>
 
 
